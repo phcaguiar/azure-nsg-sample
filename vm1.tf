@@ -50,11 +50,11 @@ resource "azurerm_virtual_machine" "vm" {
     ]
 	
 	connection {
-	  type     = "ssh"
-	  user     = "paguiar"
-	  password = "Infra.2019"
+    type     = "ssh"
+    user     = "paguiar"
+    password = "Infra.2019"
     host     = azurerm_network_interface.nic.private_ip_address  
-	  }
+    }
   }  
   provisioner "local-exec" {
     command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i azurerm_network_interface.nic.private_ip_address, playbook.yml"
