@@ -48,8 +48,8 @@ resource "azurerm_virtual_machine" "vm" {
     inline = [
       "echo ''",
     ]
-	
-	connection {
+
+  connection {
     type     = "ssh"
     user     = "paguiar"
     password = "Infra.2019"
