@@ -1,5 +1,5 @@
 install-tf:
-	git clone https://github.com/tfutils/tfenv.git ~/.tfenv && export PATH="$HOME/.tfenv/bin:$PATH" && tfenv install
+	rm -rf ~/.tfenv && git clone https://github.com/tfutils/tfenv.git ~/.tfenv && export PATH="$(HOME)/.tfenv/bin:$(PATH)" && tfenv install
 i:
 	terraform init
 v:

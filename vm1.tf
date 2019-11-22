@@ -1,14 +1,3 @@
-resource "azurerm_network_interface" "nic" {
-  name                = "nic-vm1"
-  location            = "centralus"
-  resource_group_name = "FinancialProducts-Common-CE-STG"
-  ip_configuration {
-    name                          = "nic-vm1"
-    subnet_id                     = data.azurerm_subnet.internal_stg.id
-    private_ip_address_allocation = "dynamic"
-  }
-}
-
 resource "azurerm_virtual_machine" "vm" {
   name                  = "vm1"
   location              = "centralus"
@@ -53,11 +42,11 @@ resource "azurerm_virtual_machine" "vm" {
     type     = "ssh"
     user     = "paguiar"
     password = "Infra.2019"
-    host     = azurerm_network_interface.nic.private_ip_address  
+    host     = azurerm_network_interface.nic.private_ip_address
     }
   }  
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i azurerm_network_interface.nic.private_ip_address, playbook.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i '${azurerm_network_interface.nic.private_ip_address},' playbook.yml --extra-vars 'ansible_user=paguiar ansible_password=Infra.2019'"
   }  
 
 }

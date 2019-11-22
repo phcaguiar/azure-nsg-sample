@@ -40,9 +40,3 @@ resource "azurerm_lb_probe" "lb_probe" {
   interval_in_seconds = 5
   number_of_probes    = 2
 }
-
-# resource "azurerm_network_interface_backend_address_pool_association" "network_interface_backend_address_pool_association" {
-#   network_interface_id    = azurerm_network_interface.nic.id
-#   ip_configuration_name   = "network_interface_backend_address_pool_association"
-#   backend_address_pool_id = azurerm_lb_backend_address_pool.backend_pool.id
-# }
