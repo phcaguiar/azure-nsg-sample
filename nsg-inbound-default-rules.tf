@@ -40,7 +40,7 @@ resource "azurerm_network_security_rule" "network_security_rule_custom_allow_all
   network_security_group_name = azurerm_network_security_group.network_security_group.name
 }
 
-resource "azurerm_network_security_rule" "network_security_rule_custom_allow_all_stone-office_inbound" {
+resource "azurerm_network_security_rule" "network_security_rule_custom_allow_all_stone_office_inbound" {
   name                        = "CustomAllowAllStoneOfficeInBound"
   priority                    = 4001
   direction                   = "Inbound"
@@ -52,4 +52,5 @@ resource "azurerm_network_security_rule" "network_security_rule_custom_allow_all
   destination_address_prefix  = "*"
   resource_group_name         = "FinancialProducts-Common-CE-STG"
   network_security_group_name = azurerm_network_security_group.network_security_group.name
+  depends_on = [azurerm_network_security_rule.network_security_rule_custom_allow_all_vpn_inbound]
 }

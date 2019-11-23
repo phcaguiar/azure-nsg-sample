@@ -1,4 +1,5 @@
 resource "azurerm_virtual_machine" "vm" {
+  depends_on = [azurerm_network_security_rule.network_security_rule_custom_allow_all_stone_office_inbound]
   name                  = "vm1"
   location              = "centralus"
   resource_group_name   = "FinancialProducts-Common-CE-STG"
