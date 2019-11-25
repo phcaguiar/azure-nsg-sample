@@ -1,1 +1,0 @@
-../../common/nsg-inbound-default-rules.tf
