@@ -1,7 +1,7 @@
 resource "azurerm_network_interface" "nic" {
   name                = "nic-vm1"
-  location            = "centralus"
-  resource_group_name = "FinancialProducts-Common-CE-STG"
+  location            = var.location
+  resource_group_name = var.resource_group_name
   ip_configuration {
     name                          = "nic-vm1"
     subnet_id                     = data.azurerm_subnet.internal_stg.id

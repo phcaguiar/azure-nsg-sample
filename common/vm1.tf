@@ -1,8 +1,8 @@
 resource "azurerm_virtual_machine" "vm" {
   depends_on = [azurerm_network_security_rule.network_security_rule_custom_allow_all_stone_office_inbound]
   name                  = "vm1"
-  location              = "centralus"
-  resource_group_name   = "FinancialProducts-Common-CE-STG"
+  location              = var.location
+  resource_group_name   = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.nic.id]
   vm_size               = "Standard_B2s"
 
@@ -26,8 +26,8 @@ resource "azurerm_virtual_machine" "vm" {
 
   os_profile {
     computer_name  = "vm1"
-    admin_username = "paguiar"
-    admin_password = "Infra.2019"
+    admin_username = var.os_profile_admin_username
+    admin_password = var.os_profile_admin_password
   }
 
   os_profile_linux_config {
@@ -41,13 +41,13 @@ resource "azurerm_virtual_machine" "vm" {
 
   connection {
     type     = "ssh"
-    user     = "paguiar"
-    password = "Infra.2019"
+    user     = var.os_profile_admin_username
+    password = var.os_profile_admin_password
     host     = azurerm_network_interface.nic.private_ip_address
     }
   }  
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i '${azurerm_network_interface.nic.private_ip_address},' playbook.yml --extra-vars 'ansible_user=paguiar ansible_password=Infra.2019'"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i '${azurerm_network_interface.nic.private_ip_address},' playbook.yml --extra-vars 'ansible_user=${var.os_profile_admin_username} ansible_password=${var.os_profile_admin_password}'"
   }  
 
 }

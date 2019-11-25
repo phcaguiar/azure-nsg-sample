@@ -1,7 +1,7 @@
 resource "azurerm_lb" "lb" {
-  resource_group_name = "FinancialProducts-Common-CE-STG"
+  resource_group_name = var.resource_group_name
   name                = "lb"
-  location            = "centralus"
+  location            = var.location
 
   frontend_ip_configuration {
     name                 = "LoadBalancerFrontEnd"
@@ -11,13 +11,13 @@ resource "azurerm_lb" "lb" {
 }
 
 resource "azurerm_lb_backend_address_pool" "backend_pool" {
-  resource_group_name = "FinancialProducts-Common-CE-STG"
+  resource_group_name = var.resource_group_name
   loadbalancer_id     = azurerm_lb.lb.id
   name                = "backend"
 }
 
 resource "azurerm_lb_rule" "lb_rule" {
-  resource_group_name            = "FinancialProducts-Common-CE-STG"
+  resource_group_name            = var.resource_group_name
   loadbalancer_id                = azurerm_lb.lb.id
   name                           = "LBRule"
   protocol                       = "tcp"
@@ -32,7 +32,7 @@ resource "azurerm_lb_rule" "lb_rule" {
 }
 
 resource "azurerm_lb_probe" "lb_probe" {
-  resource_group_name = "FinancialProducts-Common-CE-STG"
+  resource_group_name = var.resource_group_name
   loadbalancer_id     = azurerm_lb.lb.id
   name                = "tcpProbe"
   protocol            = "tcp"

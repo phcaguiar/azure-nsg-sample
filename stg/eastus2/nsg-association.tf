@@ -1,0 +1,1 @@
+../../common/nsg-association.tf

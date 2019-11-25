@@ -1,0 +1,1 @@
+../../common/nsg-outbound-default-rules.tf

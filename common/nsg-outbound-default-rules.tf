@@ -8,20 +8,34 @@ resource "azurerm_network_security_rule" "network_security_rule_custom_deny_all_
   destination_port_range      = "*"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
-  resource_group_name         = "FinancialProducts-Common-CE-STG"
+  resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.network_security_group.name
 }
 
 resource "azurerm_network_security_rule" "network_security_rule_custom_allow_internet_outbound" {
   name                        = "CustomAllowInternetOutBound"
-  priority                    = 3000
+  priority                    = 4095
   direction                   = "Outbound"
   access                      = "Allow"
   protocol                    = "*"
   source_port_range           = "*"
   destination_port_range      = "*"
-  source_address_prefix       = "VirtualNetwork"
+  source_address_prefix       = "*"
   destination_address_prefix  = "Internet"
-  resource_group_name         = "FinancialProducts-Common-CE-STG"
+  resource_group_name         = var.resource_group_name
+  network_security_group_name = azurerm_network_security_group.network_security_group.name
+}
+
+resource "azurerm_network_security_rule" "network_security_rule_custom_allow_servercentral_outbound" {
+  name                        = "CustomAllowServerCentralOutBound"
+  priority                    = 4094
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "172.17.0.0/16"
+  resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.network_security_group.name
 }

@@ -1,0 +1,1 @@
+../../common/asg-default-rules.tf
