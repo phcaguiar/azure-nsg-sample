@@ -1,1 +1,0 @@
-../../common/vm1.tf
